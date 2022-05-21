@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Parivahan - Transit</title>
+    <meta name="description" content="Transit Page for Parivahan.biz">
+    <link rel="icon" type="image/png" sizes="1921x1921" href="assets/img/Full%20color%20Icon.png">
+    <link rel="icon" type="image/png" sizes="1921x1921" href="assets/img/Full%20color%20Icon.png">
+    <link rel="icon" type="image/png" sizes="150x186" href="assets/img/Parivahan_logo.png">
+    <link rel="icon" type="image/png" sizes="150x186" href="assets/img/Parivahan_logo.png">
+    <link rel="icon" type="image/png" sizes="150x186" href="assets/img/Parivahan_logo.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="#" style="color: var(--bs-primary);"><img class="logo" src="assets/img/Parivahan_logo.png" loading="auto" width="55"></a><button data-bs-toggle="collapse" class="navbar-toggler visually-hidden" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse visually-hidden" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active font-heading" href="index.html" style="color: var(--bs-primary);font-size: 30px;">Transit Page</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main id="main" class="page transit-page visually-hidden">
+        <section class="clean-block transit-form dark">
+            <div class="container">
+                <div>
+                    <h1 class="font-heading" style="background : #0e3b53; color: white; padding: 6px; border-radius: 6px; ">Ride<br></h1>
+                </div>
+                <form id="Form" class="form">
+                    <div class="card-details">
+                        
+                        <br>
+                        <div class="row">
+                            <div class="">
+                                <div class="mb-3"><label class="form-label" for="card_holder"><strong>Departure</strong></label><select class="form-select" id="start" name="start">
+                                        <option value="" selected="selected">loading</option>
+                                    </select></div>
+                            </div>
+                            <div class="">
+                                <div class="mb-3"><label class="form-label"><strong>Destination</strong></label><select class="form-select" id="end" name="end">
+                                        <option disabled value="" selected="selected">loading</option>
+                                    </select></div>
+                            </div>
+                            <div class="">
+                                <div class="mb-3"><label class="form-label" for="passengerCount"><strong>No. Of Passengers</strong></label><input class="form-control" type="number" min="1" max="15" id="passengerCount" placeholder="1" name="passengerCount" required="" inputmode="numeric" pattern="^([1-9]|1[0-5])$" value="1" oninvalid="this.setCustomValidity('Please Enter Input between 1-15')" oninput="this.setCustomValidity('')" minlength="1" maxlength="2"></div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="mb-3"><span id="errormsg"></span></div>
+                            </div>
+                            
+                            <div class="" style="padding-bottom: 12px; align-items: center;"><button class="align-self-center btn-lg btn d-block w-100 btn-green" id="reqbtn" type="submit" data-bs-target="Request-Page.html">Request Ride</button></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <div id="loading" class="loading loading--full-height"></div>
+
+    
+    <footer class="footer-custom">
+    </footer>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+
+        //vm tomcat ip address
+        //base_url = "http://192.168.1.122:8080/pv/drt/demo";
+
+        //windows tomcat ip address
+        base_url = "http://localhost:8080/pv/drt/demo";
+
+        //node ip address
+        //base_url = "http://127.0.0.1:6900";
+
+        $(window).on('load', function() {
+            $('#main').hide();
+            $('#main').removeClass('visually-hidden');
+            $('#loading').delay(500).fadeOut(500);
+            $('#main').delay(500).fadeIn(500);
+        });
+
+        var locIDS = [];
+        var uid =generateUID();
+        $(document).ready(function(){
+                url=base_url+'/locations/';
+                $.getJSON(url ,function(data, textStatus, jqXHR){
+                var $start = $('#start'); 
+                var $end = $('#end');
+                //console.log(data);
+                locIDS = data;
+                $start.find('option').remove(); 
+                $end.find('option').remove(); 
+                listitems = ""; 
+                $.each(locIDS,function(key, value) 
+                {
+                    listitems+= '<option value=' + key + '>' + value + '</option>';
+                });
+                $start.append(listitems);
+                $end.append(listitems);
+                document.getElementById("start").selectedIndex = 0;
+                document.getElementById("start").options[1].disabled =true;
+                document.getElementById("end").selectedIndex = 1;
+                document.getElementById("end").options[0].disabled =true;                
+            });
+
+            $('.form-select[name=end]').on('change', function(e){
+                var thisVal = $(this).val();
+                $('.form-select[name=start] option').each(function(){
+                if(thisVal == $(this).attr('value')){
+                    $(this).attr('disabled', 'disabled');
+                }else{
+                    $(this).removeAttr('disabled');
+                }
+            })
+        })
+
+            $('.form-select[name=start]').on('change', function(e){
+                var thisVal = $(this).val();
+                $('.form-select[name=end] option').each(function(){
+                    if(thisVal == $(this).attr('value')){
+                        $(this).attr('disabled', 'disabled');
+                    }else{
+                        $(this).removeAttr('disabled');
+                    }
+                })
+            })
+        });
+
+        
+        //encode non flattened version of json
+		// async function postFormDataAsJson({ url, formData }) {
+		// 	const plainFormData = Object.fromEntries(formData.entries());
+		// 	const formDataJsonString = JSON.stringify(plainFormData);
+        //     const requestData = {
+        //         passenger: 
+        //         {
+        //             id: uid,
+        //             count: plainFormData.passengerCount,
+        //         },
+        //         ride: 
+        //         {
+        //             start: 
+        //             {
+        //                 locID:plainFormData.start
+        //             },
+        //             end:
+        //             {
+        //                 locID:plainFormData.end
+        //             }
+        //         }
+        //     }
+
+        //flattened version for demo
+        async function postFormDataAsJson({ url, formData }) {
+			const plainFormData = Object.fromEntries(formData.entries());
+			const formDataJsonString = JSON.stringify(plainFormData);
+            const requestData = {
+                passengerID: uid,
+                passengerCount: plainFormData.passengerCount,
+                rideStart:plainFormData.start,
+                rideEnd:plainFormData.end
+            }
+
+
+
+			const fetchOptions = {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify(requestData),
+			};
+
+			const response = await fetch(url, fetchOptions);
+
+			if (!response.ok) {
+				const errorMessage = await response.text();
+				throw new Error(errorMessage);
+			}
+			return response.json();
+		}
+		async function handleFormSubmit(event) {
+			event.preventDefault();
+
+			const form = event.currentTarget;
+			const url = base_url+ '/ride/order';
+
+			try {
+				const formData = new FormData(form);
+                const plainFormData = Object.fromEntries(formData.entries());
+                if(plainFormData.start==plainFormData.end || plainFormData.passengerCount==0 || plainFormData.end == undefined || plainFormData.start == undefined ) {
+                    document.getElementById("errormsg").innerHTML = "Destination and Departure cannot be same";
+                    return;
+                }
+                else {
+                    document.getElementById("errormsg").innerHTML = "";
+                    const responseData = await postFormDataAsJson({ url, formData });
+                    var bookedTime = new Date();
+                    var passengerCount = plainFormData.passengerCount;
+                    var start = locIDS[plainFormData.start];
+                    var end = locIDS[plainFormData.end];
+                    var demandID= responseData.ride.demandID;
+                    localStorage.setItem("demandID", demandID);
+                    localStorage.setItem("bookedTime",bookedTime);
+                    localStorage.setItem("passengerCount",passengerCount);
+                    localStorage.setItem("start",start);
+                    localStorage.setItem("end",end);
+                    localStorage.setItem("userID",uid);
+                    
+
+                    window.location.href = 'Request-Page.html';
+
+
+                }
+				
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		
+		const exampleForm = document.getElementById("Form");
+		exampleForm.addEventListener("submit", handleFormSubmit);
+
+
+        
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Parivahan - Requested Page</title>
+    <meta name="description" content="Requested Page for Parivahan.biz">
+    <link rel="icon" type="image/png" sizes="1921x1921" href="assets/img/Full%20color%20Icon.png">
+    <link rel="icon" type="image/png" sizes="1921x1921" href="assets/img/Full%20color%20Icon.png">
+    <link rel="icon" type="image/png" sizes="150x186" href="assets/img/Parivahan_logo.png">
+    <link rel="icon" type="image/png" sizes="150x186" href="assets/img/Parivahan_logo.png">
+    <link rel="icon" type="image/png" sizes="150x186" href="assets/img/Parivahan_logo.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="#" style="color: var(--bs-primary);"><img class="logo" src="assets/img/Parivahan_logo.png" loading="auto" width="55"></a><button data-bs-toggle="collapse" class="navbar-toggler visually-hidden" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse visually-hidden" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item font-heading"><a class="nav-link" href="index.html" style="color: var(--bs-primary);font-size: 30px;">Transit Page</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main id="main" class="page transit-page visually-hidden">
+        <section class="clean-block transit-form dark">
+            <div class="container">
+                <div>
+                    <h1 class="font-heading" style="color: white; background:#0e3b53;  padding: 6px; border-radius: 6px;"><span id="status">Your ride is on the way.</span><br></h1>
+                </div>
+                <form class="form">
+                    <div class="card-details">
+
+                        <div class="row">
+                            <div class="">
+                                
+                                <div id="gtdet" class="pt-3 font-big align-self-center"><label class="form-label" for="card_holder"><b>Finding Vehicle. . .</b></label></div>
+                                <div class="pt-3 ridearrive">Your Ride has arrived, please board.</div>
+                                <div id="vno" class="pt-3 font-big"><label class="form-label" for="card_holder">Your vehicle Number: <strong><span  id="vehicleNumber"> </span></strong></label></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <div class=""><label class="form-label" for="card_holder">
+                                   
+                                    </div>Your Request for transit of <strong><span id="passengerCount"></span> Passenger(s)</strong>&nbsp;from <strong><span  id="start"></span ></strong> to <strong><span  id="end"></span ></strong> has been registered.</label></div>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <div class="mb-3 etpa"><label class="form-label">Estimated Pickup:<br><strong><div id="etpa"></div></strong></label></div>
+                            </div>
+                            <div class="">
+                                <div class="mb-3"><label class="form-label">Estimated Arrival:<br><strong><div id="eta"></div></strong></label></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div id = "cancelbt" class=""><a class="btn btn-lg d-block w-100 btn-grey" role="button" href="Cancelled-Page.html">Cancel Request</a></div>
+                        </div>
+                        <div class="row">
+                            <div id="alert" style = "text-align: center; font-size: 18px;" class="col-8 col-sm-8 col-lg-6 col-xl-6 offset-2 offset-sm-2 offset-lg-3 align-self-center">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- <a style="position:fixed;bottom:0; left:0;color : white" href="Arrived-Page.html">Arrived Page(Debug Link)</a> -->
+    </main>
+    <div id="loading" class="loading loading--full-height"></div>
+    
+    <footer class="footer-custom">
+    </footer>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+
+        //vm tomcat ip address
+        //base_url = "http://192.168.1.122:8080/pv/drt/demo";
+
+        //windows tomcat ip address
+        base_url = "http://localhost:8080/pv/drt/demo";
+
+        //node ip address
+        //base_url = "http://127.0.0.1:6900";
+
+
+        //main loading section 
+        $(window).on('load', function() {
+            $('#main').hide();
+            $('#main').removeClass('visually-hidden');
+            $('#loading').delay(500).fadeOut(500);
+            $('#main').delay(500).fadeIn(500);
+        });
+
+        $(window).on('load', function() {
+            demandID=localStorage.getItem("demandID");
+
+        
+            
+            url=base_url+'/ride/status/demandID/'+demandID;
+            
+            //console.log(url);
+            poll();
+            function poll() {
+                $.getJSON(url ,function(data, textStatus, jqXHR){
+                    //console.log(data);
+                    
+                    if(status == 'You have arrived at your destination.' || data.ride.dropoffMinutes== 0) {
+                        window.location.href = "Arrived-Page.html";
+                    }
+                    else {
+                        status= data.ride.status;
+                        document.getElementById("status").textContent = status;
+                    }
+
+                    bookedTime=localStorage.getItem("bookedTime");
+                    bookedT = new Date(bookedTime);
+                    start=localStorage.getItem("start");
+                    end=localStorage.getItem("end");
+                    passengerCount=localStorage.getItem("passengerCount");
+
+                   
+                    document.getElementById("start").textContent = start;
+                    document.getElementById("end").textContent = end;
+                    document.getElementById("passengerCount").textContent = passengerCount;
+                    
+
+                    etpa = new Date(bookedTime);
+                    eta = new Date(bookedTime);
+
+                    console.log('Pickup Minutes:'+data.ride.pickupMinutes);
+                    console.log('DropOff Minutes:'+data.ride.dropoffMinutes);
+
+                    function AddMinutesToDate(date, minutes) {
+                        return new Date(date.getTime() + minutes * 60000);
+                    }
+                    
+                    etpa= AddMinutesToDate(etpa, data.ride.pickupMinutes);
+                    eta= AddMinutesToDate(eta, data.ride.dropoffMinutes);
+                    document.getElementById("etpa").textContent = etpa.toLocaleTimeString('en-US',{ hour: '2-digit', minute: '2-digit' });
+                    document.getElementById("eta").textContent = eta.toLocaleTimeString('en-US',{ hour: '2-digit', minute: '2-digit' });
+
+                    if(data.ride.vehicleNumber!= '' ){
+
+                        vehicleNumber = data.ride.vehicleNumber;
+                        document.getElementById("vehicleNumber").innerHTML = vehicleNumber;
+
+                        $('#gtdet').hide();
+                        $('#vno').show();
+                        
+                    }
+                    else {
+                        $('#vno').hide();
+                        $('#gtdet').show();
+                    }
+
+                    if(data.ride.pickupMinutes < 5) {
+
+                        $('#cancelbt').hide();
+
+                    }
+                    else {
+                        
+                        $('#cancelbt').show();
+
+                    }
+                    if(data.ride.pickupMinutes == 0) {
+                        $(".ridearrive").show();
+                        setTimeout(function(){
+                            $(".ridearrive").remove();
+                        }, 5000);
+                        $(".etpa").hide();
+                    }
+                    else {
+                        $(".ridearrive").hide();
+                    }
+                   
+                })
+                .done(function () { 
+
+                    setTimeout(function(){
+                        poll();
+                    }, 10000); 
+                })
+                .fail(function (jqxhr,settings,ex) { 
+                    alert('Poll Request Failed: '+ ex); 
+                });
+
+            };
+
+            
+        });
+            
+
+            
+    </script>
+</body>
+
+</html>
