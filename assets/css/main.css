@@ -86,9 +86,45 @@
 
 }
 
+@font-face {
+  font-family: 'Bebas Neue Pro Light';
+  src: url('./fonts/BebasNeuePro-Light.woff2') format('woff2'),
+      url('BebasNeuePro-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('./fonts/BebasNeuePro-Regular.woff2') format('woff2'),
+      url('./fonts/BebasNeuePro-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro Book';
+  src: url('./fonts/BebasNeuePro-Book.woff2') format('woff2'),
+      url('./fonts/BebasNeuePro-Book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('./fonts/BebasNeuePro-Bold.woff2') format('woff2'),
+      url('./fonts/BebasNeuePro-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 .font-heading{
   font-size: 40px;
-  font-family: 'bebas_neue_probold',"Montserrat", sans-serif;
+  font-family: 'Bebas Neue Pro',"Montserrat", sans-serif;
 }
 
 .font-big{
@@ -96,13 +132,98 @@
 }
 
 .ridearrive {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 #errormsg{
   color: var(--bs-red);
 }
+
+.btn-grey {
+  background-color: var(--bs-gray-300);
+  margin-bottom: 10px;
+}
+
+@media (min-width: 1200px) {
+  .clean-block.transit-form.dark {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .clean-block.transit-form.dark {
+    max-width: 80%;
+  }
+}
+
+.page.transit-page {
+  padding-bottom: 100px;
+}
+
+.clean-block.transit-form.dark {
+  border-radius: 15px;
+}
+
+option:disabled {
+  background: var(--bs-primary);
+  color : white;
+}
+
+.navbar-toggler-icon {
+  color: #ecf0f1;
+  height: 44px !important;
+  width: 30px !important;
+}
+
+#reqbtn{
+  height: 55px;
+  align-items: center;
+}
+
+select:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.form-control:focus{
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+select,.form-control{
+  border-radius: 0% !important;
+}
+
+.pdzero{
+  padding : 0px;
+}
+
+.pd12{
+  padding : 12px;
+  padding-bottom: 0px !important;
+}
+
+.pgheading{
+  background : #0e3b53; 
+  color: white; 
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.reqride{
+  padding-bottom: 12px; 
+  align-items: center;
+}
+
+/* #gtdet,#vno{
+  background-color: var(--bs-primary);
+  border-radius: 6px;
+  vertical-align: center;
+  text-align: center !important;
+  padding-bottom: 6px;
+  color: white;
+} */
 :root {
 
   --bs-blue: #0d6efd;
@@ -156,59 +277,4 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
-}
-
-.btn-grey {
-  background-color: var(--bs-gray-300);
-  margin-bottom: 10px;
-}
-
-@media (min-width: 1200px) {
-  .clean-block.transit-form.dark {
-    max-width: 500px;
-  }
-}
-
-@media (max-width: 600px) {
-  .clean-block.transit-form.dark {
-    max-width: 80%;
-  }
-}
-
-.page.transit-page {
-  padding-bottom: 100px;
-}
-
-.clean-block.transit-form.dark {
-  border-radius: 15px;
-}
-
-option:disabled {
-  background: #ccdfe7;
-  color : white;
-}
-
-.navbar-toggler-icon {
-  color: #ecf0f1;
-  height: 44px !important;
-  width: 30px !important;
-}
-
-#reqbtn{
-  height: 60px;
-  align-items: center;
-}
-
-select:focus {
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-.form-control:focus{
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-select,.form-control{
-  border-radius: 0% !important;
 }
