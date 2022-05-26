@@ -29,46 +29,42 @@
     </nav>
     <main id="main" class="page transit-page visually-hidden">
         <section class="clean-block transit-form dark">
-            <div class="container">
+            <div class="container pdzero">
                 <div>
-                    <h1 class="font-heading" style="color: white; background:#0e3b53;  padding: 6px; border-radius: 6px;"><span id="status">Your ride is on the way.</span><br></h1>
+                    <h1 class="font-heading pgheading"><span id="status">Your ride is on the way</span><br></h1>
                 </div>
-                <form class="form">
+                <form class="form pd12">
                     <div class="card-details">
 
                         <div class="row">
-                            <div class="">
+                            <div>
                                 
-                                <div id="gtdet" class="pt-3 font-big align-self-center"><label class="form-label" for="card_holder"><b>Finding Vehicle. . .</b></label></div>
-                                <div class="pt-3 ridearrive">Your Ride has arrived, please board.</div>
-                                <div id="vno" class="pt-3 font-big"><label class="form-label" for="card_holder">Your vehicle Number: <strong><span  id="vehicleNumber"> </span></strong></label></div>
+                                <div id="gtdet" class="pt-3 font-big align-self-center"><label class="form-label" for="card_holder"><b>Finding vehicle. . .</b></label></div>
+                                <!-- <div class="pt-1 ridearrive">Your Ride has arrived, please board.<br><br></div> -->
+                                <div id="vno" class="pt-3 "><label class="form-label" for="card_holder">Your vehicle number: <strong><span  id="vehicleNumber"> </span></strong></label></div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="">
-                                <div class=""><label class="form-label" for="card_holder">
+                            <div id="stmsg">
+                                <div><label class="form-label" for="card_holder">
                                    
-                                    </div>Your Request for transit of <strong><span id="passengerCount"></span> Passenger(s)</strong>&nbsp;from <strong><span  id="start"></span ></strong> to <strong><span  id="end"></span ></strong> has been registered.</label></div>
+                                    </div>Your request for transit of <strong><span id="passengerCount"></span> Passenger(s)</strong>&nbsp;from <strong><span  id="start"></span ></strong> to <strong><span  id="end"></span ></strong> has been registered.</label></div>
                             </div>
                             <br>
                         </div>
                         <div class="row">
-                            <div class="">
+                            <div>
                                 <div class="mb-3 etpa"><label class="form-label">Estimated Pickup:<br><strong><div id="etpa"></div></strong></label></div>
                             </div>
-                            <div class="">
+                            <div>
                                 <div class="mb-3"><label class="form-label">Estimated Arrival:<br><strong><div id="eta"></div></strong></label></div>
                             </div>
                         </div>
-                        <br>
+                        
                         <div class="row">
-                            <div id = "cancelbt" class=""><a class="btn btn-lg d-block w-100 btn-grey" role="button" href="Cancelled-Page.html">Cancel Request</a></div>
+                            <div id = "cancelbt" class=""><a class="btn btn-lg d-block w-100 btn-green" role="button" href="Cancelled-Page.html">Cancel Request</a></div>
                         </div>
-                        <div class="row">
-                            <div id="alert" style = "text-align: center; font-size: 18px;" class="col-8 col-sm-8 col-lg-6 col-xl-6 offset-2 offset-sm-2 offset-lg-3 align-self-center">
-                                
-                            </div>
-                        </div>
+                        
                     </div>
                 </form>
             </div>
@@ -84,14 +80,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
 
-        //vm tomcat ip address
-        //base_url = "http://192.168.1.122:8080/pv/drt/demo";
-
-        //windows tomcat ip address
-        base_url = "http://localhost:8080/pv/drt/demo";
-
-        //node ip address
-        //base_url = "http://127.0.0.1:6900";
 
 
         //main loading section 
@@ -157,11 +145,13 @@
 
                         $('#gtdet').hide();
                         $('#vno').show();
+                        $('#stmsg').hide();
                         
                     }
                     else {
                         $('#vno').hide();
                         $('#gtdet').show();
+                        $('#stmsg').show();
                     }
 
                     if(data.ride.pickupMinutes < 5) {
@@ -175,14 +165,14 @@
 
                     }
                     if(data.ride.pickupMinutes == 0) {
-                        $(".ridearrive").show();
+                        //$(".ridearrive").show();
                         setTimeout(function(){
-                            $(".ridearrive").remove();
+                            //$(".ridearrive").remove();
                         }, 5000);
                         $(".etpa").hide();
                     }
                     else {
-                        $(".ridearrive").hide();
+                        //$(".ridearrive").hide();
                     }
                    
                 })

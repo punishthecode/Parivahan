@@ -29,33 +29,33 @@
     </nav>
     <main id="main" class="page transit-page visually-hidden">
         <section class="clean-block transit-form dark">
-            <div class="container">
+            <div class="container pdzero">
                 <div>
-                    <h1 class="font-heading" style="background : #0e3b53; color: white; padding: 6px; border-radius: 6px; ">Ride<br></h1>
+                    <h1 class="font-heading pgheading">Ride<br></h1>
                 </div>
-                <form id="Form" class="form">
+                <form id="Form" class="form pd12">
                     <div class="card-details">
                         
-                        <br>
+                        
                         <div class="row">
-                            <div class="">
-                                <div class="mb-3"><label class="form-label" for="card_holder"><strong>Departure</strong></label><select class="form-select" id="start" name="start">
+                            <div>
+                                <div class="mb-2"><label class="form-label mb-1" for="card_holder"><strong>Departure</strong></label><select class="form-select" id="start" name="start">
                                         <option value="" selected="selected">loading</option>
                                     </select></div>
                             </div>
-                            <div class="">
-                                <div class="mb-3"><label class="form-label"><strong>Destination</strong></label><select class="form-select" id="end" name="end">
+                            <div>
+                                <div id="dest" class="mb-2"><label class="form-label mb-1"><strong>Destination</strong></label><select class="form-select" id="end" name="end">
                                         <option disabled value="" selected="selected">loading</option>
                                     </select></div>
                             </div>
-                            <div class="">
-                                <div class="mb-3"><label class="form-label" for="passengerCount"><strong>No. Of Passengers</strong></label><input class="form-control" type="number" min="1" max="15" id="passengerCount" placeholder="1" name="passengerCount" required="" inputmode="numeric" pattern="^([1-9]|1[0-5])$" value="1" oninvalid="this.setCustomValidity('Please Enter Input between 1-15')" oninput="this.setCustomValidity('')" minlength="1" maxlength="2"></div>
+                            <div>
+                                <div class="mb-2"><label class="form-label mb-1" for="passengerCount"><strong>No. of Passengers</strong></label><input class="form-control" type="number" maxlength="2"  oninput="this.setCustomValidity('');javascript: if (this.value > 15) this.value = 15; if(this.value < 1) this.value = '' ;" min="1" max="15" id="passengerCount" placeholder="1" name="passengerCount" required="" inputmode="numeric" pattern="^([1-9]|1[0-5])$" value="1" oninvalid="this.setCustomValidity('Please Enter Input between 1-15')" minlength="1" maxlength="2"></div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="mb-3"><span id="errormsg"></span></div>
+                                <div class="mb-2"><span id="errormsg"></span></div>
                             </div>
                             
-                            <div class="" style="padding-bottom: 12px; align-items: center;"><button class="align-self-center btn-lg btn d-block w-100 btn-green" id="reqbtn" type="submit" data-bs-target="Request-Page.html">Request Ride</button></div>
+                            <div class="reqride"><button class="align-self-center mt-2 btn-lg btn d-block w-100 btn-green" id="reqbtn" type="submit" data-bs-target="Request-Page.html">Request Ride</button></div>
                         </div>
                     </div>
                 </form>
@@ -72,14 +72,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
 
-        //vm tomcat ip address
-        //base_url = "http://192.168.1.122:8080/pv/drt/demo";
-
-        //windows tomcat ip address
-        base_url = "http://localhost:8080/pv/drt/demo";
-
-        //node ip address
-        //base_url = "http://127.0.0.1:6900";
 
         $(window).on('load', function() {
             $('#main').hide();

@@ -1,3 +1,13 @@
+//vm tomcat ip address
+        //base_url = "http://192.168.1.122:8080/pv/drt/demo";
+
+        //windows tomcat ip address
+        base_url = "http://localhost:8080/pv/drt/demo";
+
+        //node ip address
+        //base_url = "http://127.0.0.1:6900";
+
+
 function checkDemandID(){
     var demandID = localStorage.getItem("demandID");
     alert(demandID);
