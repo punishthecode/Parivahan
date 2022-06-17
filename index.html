@@ -39,17 +39,17 @@
                         
                         <div class="row">
                             <div>
-                                <div class="mb-2"><label class="form-label mb-1" for="card_holder"><strong>Departure</strong></label><select class="form-select" id="start" name="start">
+                                <div class="mb-2 hdnames"><label class="form-label mb-1" for="card_holder"><strong>Departure</strong></label><select class="form-select hdnames" id="start" name="start">
                                         <option value="" selected="selected">loading</option>
                                     </select></div>
                             </div>
                             <div>
-                                <div id="dest" class="mb-2"><label class="form-label mb-1"><strong>Destination</strong></label><select class="form-select" id="end" name="end">
+                                <div id="dest" class="mb-2 hdnames"><label class="form-label mb-1"><strong>Destination</strong></label><select class="form-select hdnames" id="end" name="end">
                                         <option disabled value="" selected="selected">loading</option>
                                     </select></div>
                             </div>
                             <div>
-                                <div class="mb-2"><label class="form-label mb-1" for="passengerCount"><strong>No. of Passengers</strong></label><input class="form-control" type="number" maxlength="2"  oninput="this.setCustomValidity('');javascript: if (this.value > 15) this.value = 15; if(this.value < 1) this.value = '' ;" min="1" max="15" id="passengerCount" placeholder="1" name="passengerCount" required="" inputmode="numeric" pattern="^([1-9]|1[0-5])$" value="1" oninvalid="this.setCustomValidity('Please Enter Input between 1-15')" minlength="1" maxlength="2"></div>
+                                <div class="mb-2 hdnames"><label class="form-label mb-1" for="passengerCount"><strong>No. of Passengers</strong></label><input class="form-control hdnames" type="number" maxlength="2"  oninput="this.setCustomValidity('');javascript: if (this.value > 15) this.value = 15; if(this.value < 1) this.value = '' ;" min="1" max="15" id="passengerCount" placeholder="1" name="passengerCount" required="" inputmode="numeric" pattern="^([1-9]|1[0-5])$" value="1" oninvalid="this.setCustomValidity('Please Enter Input between 1-15')" minlength="1" maxlength="2"></div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="mb-2"><span id="errormsg"></span></div>
